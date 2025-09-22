@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barrie Transit Pass</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .transit-card {
+            background:#A0527A;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            height: 1000px;
+            max-width: 380px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .ride-type {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .date-time {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .time {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .transit-name {
+            color: white;
+            font-size: 16px;
+            font-weight: 400;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        .city-illustration {
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
+            border-radius: 15px;
+            height: 120px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .bus {
+            width: 60px;
+            height: 30px;
+            background: #4A90E2;
+            border-radius: 8px;
+            position: relative;
+            margin: 0 5px;
+        }
+
+        .bus::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 8px;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .buildings {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to right,
+                #5DADE2 0%, #5DADE2 20%,
+                #3498DB 20%, #3498DB 40%,
+                #2980B9 40%, #2980B9 60%,
+                #5DADE2 60%, #5DADE2 80%,
+                #3498DB 80%, #3498DB 100%);
+        }
+
+        .expire-button {
+            background: #E74C3C;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 40px;
+            font-size: 16px;
+            width: 100%;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .expire-button:hover {
+            background: #C0392B;
+            transform: translateY(-1px);
+        }
+
+        .expiry-info {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .expiry-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .expiry-time {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .user-id {
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="transit-card">
+        <div class="card-header">
+            <div class="ride-type">Student Pass</div>
+            <div class="date-time" id="dateTime"></div>
+            <div class="transit-name">Barrie Transit</div>
+        </div>
+
+        <div class="city-illustration">
+            <div class="buildings"></div>
+            <div style="display: flex; align-items: flex-end;">
+                <div class="bus"></div>
+                <div class="bus"></div>
+                <div class="bus"></div>
+            </div>
+        </div>
+
+        <button class="expire-button">Expire</button>
+
+        <div class="expiry-info">
+            <div class="expiry-text">This pass expires after</div>
+            <div class="expiry-time">116 minutes</div>
+        </div>
+
+        <div class="user-id">User ID 1111697050</div>
+
+        
+    </div>
+
+    <script>
+        // Update date and time every second
+        function updateDateTime() {
+            const dateTimeElement = document.getElementById('dateTime');
+            const now = new Date();
+
+            const dateOptions = {
+                weekday: 'short',
+                month: 'short',
+                day: '2-digit',
+                year: 'numeric'
+            };
+
+            const timeOptions = {
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+
+            const dateString = now.toLocaleDateString('en-US', dateOptions);
+            const timeString = now.toLocaleTimeString('en-US', timeOptions);
+
+            dateTimeElement.innerHTML = `${dateString}<br><span class="time">${timeString}</span>`;
+        }
+
+        // Update immediately and then every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Add click functionality to expire button
+        document.querySelector('.expire-button').addEventListener('click', function() {
+            const expiryTime = document.querySelector('.expiry-time');
+            let minutes = parseInt(expiryTime.textContent);
+            if (minutes > 0) {
+                minutes--;
+                expiryTime.textContent = minutes + ' minutes';
+            }
+        });
+
+        // Add tap feedback for mobile
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Remove active class from all items
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                // Add active class to clicked item
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
