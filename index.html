@@ -36,7 +36,7 @@
 
   /* Text styles */
   .small-text {
-    font-weight: 400;
+    font-weight: 700;
     font-size: 14px;
     margin-bottom: 8px;
   }
@@ -148,6 +148,27 @@
     width: 24px;
     height: 24px;
   }
+
+  .hamburger {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 28px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  .hamburger span {
+    display: block;
+    height: 4px;
+    background-color: #333;
+    border-radius: 2px;
+  }
 </style>
 </head>
 <body>
@@ -164,20 +185,6 @@
     <div class="bus-image" aria-label="Bus transit illustration">
       <img src="/ticketappgif.gif" alt="Animated city bus driving along a street with passengers visible through the windows, set against a bright urban background with buildings and trees, conveying a friendly and welcoming atmosphere" style="width: 100%; height: auto;" loop autoplay muted playsinline />
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <button class="expire-button" aria-label="Expire pass button">Expire</button>
     <div class="expiry-info">This pass expires after 84 minutes</div>
     <div class="user-id">User ID 1111648119</div>
@@ -210,29 +217,6 @@
       Permits
     </div>
   </nav>
-
-<style>
-  .hamburger {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    width: 28px;
-    height: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-  }
-  .hamburger span {
-    display: block;
-    height: 4px;
-    background-color: #333;
-    border-radius: 2px;
-  }
-</style>
 
 <script>
   function updateDateTime() {
